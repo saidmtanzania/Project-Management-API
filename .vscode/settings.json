@@ -6,7 +6,12 @@
         }
     },
     "cSpell.words": [
+        "createdat",
         "datname",
-        "pgcrypto"
+        "deletedat",
+        "enddate",
+        "pgcrypto",
+        "startdate",
+        "updatedat"
     ]
 }
