@@ -1,0 +1,13 @@
+
+### update Project
+PATCH  {{serverHost}}api/projects/<projectId> HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Project Name XXX",
+    "description": "Project Description",
+    "clientName": "Client Name",
+    "status": "completed",
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31"
+}

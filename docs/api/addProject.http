@@ -1,0 +1,12 @@
+
+### Create Project
+POST {{serverHost}}api/projects HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Project Name",
+    "description": "Project Description",
+    "clientName": "Client Name",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31"
+}
