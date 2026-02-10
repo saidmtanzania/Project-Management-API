@@ -4,9 +4,11 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 
 const Logger = require('./utils/logger');
+const { createDatabaseIfNotExists } = require('../database/dbInit');
 
 
 async function startServer() {
+    await createDatabaseIfNotExists();
     const app = express();
     process.on("uncaughtException", function(err){
         Logger.error(`[Server] Uncaught Exception: ${err.message}`);
