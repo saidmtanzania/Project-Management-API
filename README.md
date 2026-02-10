@@ -85,7 +85,7 @@ Lightweight REST service for creating, tracking, and archiving client projects w
 - Database operations rely on pooled connections from [src/utils/dbPool.js](src/utils/dbPool.js)
 
 ## Development Tips
-- Use the HTTP request snippets under [docs/api](docs/api) with REST Client or Thunder Client
+- Use the HTTP request snippets under [docs/api](docs/api) with REST Client
 
 ## AI Usage (Mandatory Disclosure)
 - **Tools used:** GPT-5.1-Codex via GitHub Copilot Chat inside VS Code
