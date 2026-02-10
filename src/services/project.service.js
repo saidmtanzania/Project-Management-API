@@ -26,13 +26,13 @@ const ProjectSQL = {
         return res.rows[0];
     },
 
-    async update(id, { name, description, clientName, startDate, endDate }) {
+    async update(id, { name, description, clientName, status, startDate, endDate }) {
         const res = await db.query(
             `UPDATE projects
-            SET name = $1, description = $2, clientName = $3, startDate = $4, endDate = $5
-            WHERE id = $6 AND deletedAt IS NULL
+            SET name = $1, description = $2, clientName = $3, status = $4, startDate = $5, endDate = $6, updatedAt = NOW()
+            WHERE id = $7 AND deletedAt IS NULL
             RETURNING *`,
-            [name, description ?? null, clientName, startDate, endDate ?? null, id]
+            [name, description ?? null, clientName, status, startDate, endDate ?? null, id]
         );
         return res.rows[0];
     },
