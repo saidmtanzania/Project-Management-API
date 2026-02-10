@@ -1,15 +1,23 @@
 const { validate: uuidValidate } = require("uuid");
 const { ProjectSQL } = require("../services/project.service");
+const { parseProjectsQuery } = require("../utils/queryParsers");
 
-async function getProjects(req, res) {
-    const projects = await ProjectSQL.getAll();
-    if (!projects || projects.length === 0) 
-        return res.status(404).json({ message: "No projects found" });
-    
-    res.json(projects);
+async function getProjects(req, res, next) {
+    try {
+        const filters = parseProjectsQuery(req.query);
+        const result = await ProjectSQL.getAll(filters);
+
+        res.json({
+            data: result.rows,
+            meta: result.meta,
+        });
+    } catch (error) {
+        if (error.statusCode) return res.status(error.statusCode).json({ message: error.message });
+        next(error);
+    }
 }
 
-async function getProjectById(req, res) {
+async function getProjectById(req, res, next) {
     const { id } = req.params;
 
     if (!uuidValidate(id) || !id) {
@@ -21,7 +29,7 @@ async function getProjectById(req, res) {
     res.json(project);
 }
 
-async function createProject(req, res) {
+async function createProject(req, res, next) {
     const { name, description, clientName, startDate, endDate } = req.body;
     if (!name || !clientName || !startDate)
         return res.status(400).json({ message: "Name, clientName and startDate are required" });
@@ -30,11 +38,16 @@ async function createProject(req, res) {
     if(endDate && new Date(endDate) < new Date(startDate))
         return res.status(400).json({ message: "End date cannot be before start date" });
 
-    const newProject = await ProjectSQL.create({ name, description, clientName, startDate, endDate });
-    res.status(201).json(newProject);
+    try {
+        const newProject = await ProjectSQL.create({ name, description, clientName, startDate, endDate });
+        res.status(201).json(newProject);
+    } catch (error) {
+        next(error);
+    }
+
 }
 
-async function updateProject(req, res) {
+async function updateProject(req, res, next) {
     const { id } = req.params;
     if (!uuidValidate(id) || !id) {
         return res.status(400).json({ message: "Invalid project ID" });
@@ -53,20 +66,28 @@ async function updateProject(req, res) {
         return res.status(400).json({ message: "Cannot change status of a completed project" });
     }
     
-    const updatedProject = await ProjectSQL.update(id, { name, description, clientName, status, startDate, endDate });
-    if (!updatedProject) return res.status(404).json({ message: "Project not found" });
-    res.json(updatedProject);
+    try {
+        const updatedProject = await ProjectSQL.update(id, { name, description, clientName, status, startDate, endDate });
+        if (!updatedProject) return res.status(404).json({ message: "Project not found" });
+        res.json(updatedProject);
+    } catch (error) {
+        next(error);
+    }
 }
 
 
-async function deleteProject(req, res) {
+async function deleteProject(req, res, next) {
     const { id } = req.params;
     if (!uuidValidate(id) || !id) {
         return res.status(400).json({ message: "Invalid project ID" });
     }
-    const deletedProject = await ProjectSQL.delete(id);
-    if (!deletedProject) return res.status(404).json({ message: "Project not found" });
-    res.json({ message: "Project deleted successfully" });
+    try {
+        const deletedProject = await ProjectSQL.delete(id);
+        if (!deletedProject) return res.status(404).json({ message: "Project not found" });
+        res.json({ message: "Project deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
 }
 
 module.exports = { getProjects, getProjectById, createProject, updateProject, deleteProject };

@@ -67,6 +67,12 @@ Lightweight REST service for creating, tracking, and archiving client projects w
 | PATCH | `/api/projects/:id` | Update mutable fields; prevents downgrading a `completed` status |
 | DELETE | `/api/projects/:id` | Soft-delete a project (sets `deletedAt`) |
 
+### Project List Query Features
+- Optional `status` filter accepts `active`, `on_hold`, or `completed`
+- Optional `search` filter performs case-insensitive partial matches on project `name` or `clientName`
+- Optional `sort` accepts `createdAt`, `startDate`, or the descending `-createdAt`, `-startDate` forms
+- All filters combine with each other and support empty datasets without errors; results always include `{ data, meta }` with pagination info (`page`, `limit`, `total`, `totalPages`)
+
 ### Validation & Business Rules
 - All IDs must be valid UUID strings (`uuid.validate`)
 - `endDate` cannot precede `startDate`
