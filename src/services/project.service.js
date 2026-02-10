@@ -1,4 +1,4 @@
-const { db } = require("../utils/pool");
+const { db } = require("../utils/dbPool");
 
 const ProjectSQL = {
     async getAll() {
