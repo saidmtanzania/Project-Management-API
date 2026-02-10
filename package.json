@@ -1,0 +1,31 @@
+{
+  "name": "project-management-api",
+  "version": "1.0.0",
+  "description": "The API manages projects and supports basic querying and state transitions.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saidmtanzania/Project-Management-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saidmtanzania/Project-Management-API/issues"
+  },
+  "homepage": "https://github.com/saidmtanzania/Project-Management-API#readme",
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "pg": "^8.18.0",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
