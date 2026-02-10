@@ -1,4 +1,10 @@
 {
+    "rest-client.environmentVariables": {
+        "$shared": {},
+        "localhost": {
+            "serverHost": "http://localhost:5000/",
+        }
+    },
     "cSpell.words": [
         "datname",
         "pgcrypto"
