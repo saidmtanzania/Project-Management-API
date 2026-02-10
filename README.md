@@ -86,8 +86,6 @@ Lightweight REST service for creating, tracking, and archiving client projects w
 
 ## Development Tips
 - Use the HTTP request snippets under [docs/api](docs/api) with REST Client or Thunder Client
-- Consider adding integration tests (e.g., Jest + Supertest) and CI database workflows for regression safety
-- For multi-env deployments, add per-environment `.env` files or secret management via Azure/GitHub Actions
 
 ## AI Usage (Mandatory Disclosure)
 - **Tools used:** GPT-5.1-Codex via GitHub Copilot Chat inside VS Code
