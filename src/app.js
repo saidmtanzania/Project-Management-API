@@ -5,10 +5,13 @@ const morgan = require('morgan');
 
 const Logger = require('./utils/logger');
 const { createDatabaseIfNotExists } = require('../database/dbInit');
+const { runMigrations } = require('../database/runMigrations');
 
 
 async function startServer() {
     await createDatabaseIfNotExists();
+    await runMigrations();
+
     const app = express();
     process.on("uncaughtException", function(err){
         Logger.error(`[Server] Uncaught Exception: ${err.message}`);
