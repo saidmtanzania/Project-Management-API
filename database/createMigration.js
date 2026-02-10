@@ -27,7 +27,6 @@ const filePath = path.join(migrationsDir, fileName);
 
 const template = `-- Migration: ${name}
 -- Created at: ${new Date().toISOString()}
-
 -- Write your SQL below
 `;
 

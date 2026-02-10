@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 
 const Logger = require('./utils/logger');
+const projectRoutes = require('./routes/project.route'); 
 const { createDatabaseIfNotExists } = require('../database/dbInit');
 const { runMigrations } = require('../database/runMigrations');
 
@@ -27,6 +28,8 @@ async function startServer() {
     app.use(helmet());
     app.use(express.json());
     app.use(morgan("dev"));
+
+    app.use("/api/projects", projectRoutes);
 
     const port = Number(process.env.PORT || 3000);
     app.listen(port, () => Logger.info(`Server is running on port ${port}`));
